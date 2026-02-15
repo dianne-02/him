@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Babe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Sniglet&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-image: url('https://i.pinimg.com/736x/db/95/e7/db95e7b9a6e4c30bbda7a6489018cb30.jpg');
+            --env-main: #ffb7c5; 
+            --env-flap: #ff9fb2;
+            --env-inside: #ffe5ec;
+            --seal-brown: #6d4c41; 
+            --text-main: #800f2f;
+        }
+
+        body, html {
+            margin: 0; padding: 0; height: 100%; width: 100%;
+            overflow: hidden; display: flex;
+            justify-content: center; align-items: center;
+            background: var(--bg-image) no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* --- REALISTIC ENVELOPE (REVISED) --- */
+        .envelope-wrapper {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            background-color: var(--env-main); /* Solid body, no extra triangles */
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.3);
+            z-index: 10;
+            border-radius: 4px;
+        }
+
+        .envelope {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        /* ONLY ONE TRIANGLE (THE FLAP) */
+        .flap {
+            position: absolute;
+            top: 0; width: 0; height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 115px solid var(--env-flap);
+            transform-origin: top;
+            transition: transform 0.6s ease-in-out;
+            z-index: 5;
+            /* Added shadow for realism */
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1));
+        }
+
+        /* The Pocket (Solid panel for realism) */
+        .pocket {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--env-main);
+            z-index: 4;
+            border-radius: 0 0 4px 4px;
+        }
+
+        /* Realistic Shadow inside the opening */
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.15), transparent 40%);
+            z-index: 2;
+        }
+
+        /* --- THE LETTER (STAYS THE SAME) --- */
+        .letter {
+            position: relative;
+            bottom: 5px;
+            left: 10px;
+            width: 300px;
+            height: 200px;
+            background: linear-gradient(to bottom, #ffffff 0%, #f9f9f9 100%);
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            border-radius: 2px;
+            z-index: 3;
+            opacity: 0;
+            transform: scale(0.1);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+
+        .letter h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2em;
+            margin: 0 0 10px 0;
+            color: var(--text-main);
+        }
+
+        .letter p {
+            font-family: 'Sniglet', cursive;
+            font-size: 0.85em;
+            line-height: 1.4;
+            color: #444;
+            margin: 0;
+        }
+
+        /* Realistic Wax Seal (STAYS THE SAME) */
+        .seal {
+            position: absolute;
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle at 30% 30%, #8d6e63, #6d4c41);
+            border-radius: 50%;
+            z-index: 6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4), inset 0 0 5px rgba(0,0,0,0.5);
+        }
+        .seal::after { content: '❤'; color: #d4a373; font-size: 18px; filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.5)); }
+
+        /* OPEN STATES */
+        .envelope-wrapper.open .flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .envelope-wrapper.open .letter {
+            opacity: 1;
+            transform: scale(1.3) translateY(-40px);
+            z-index: 10;
+            height: 350px; 
+            width: 340px;
+            left: -10px;
+        }
+
+        .envelope-wrapper.open .seal {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @media (max-width: 480px) {
+            .envelope-wrapper.open .letter {
+                transform: scale(1.05) translateY(-20px);
+                width: 320px;
+                left: 0;
+            }
+        }
+
+        #music-container { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="envelope-wrapper" id="envWrapper">
+        <div class="envelope">
+            <div class="flap"></div>
+            <div class="seal"></div>
+            <div class="pocket"></div>
+            <div class="letter">
+                <h1>Hi babe!</h1>
+                <p>
+                    belated happy valentines unta madala pani HAHAHAHAHA. Miss na kaayo tika, daghan kaykog gusto i chika saimohaaa pero wait rako nimo. Nagka anam nagka litsi nasad amoa buhatonon medj busy na hehe. Musta man ikaw diraa? unta ako pa HAHAHHAHA unta wala kay natipuhan dira HAHAHAHA. 
+                    <br><br>
+                    I miss you so much babe:(( Some days feel longer, some nights feel quieter, but I know distance is temporary, our dreams are permanent. I’d rather go through this season of waiting than miss out on a future with you. Ill be right here. Ikaw ra gihapon babe walang iba, saimo ra.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="music-container"><div id="player"></div></div>
+
+    <script>
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0', width: '0', videoId: 'E7Aif6vPMhU',
+                playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'E7Aif6vPMhU' }
+            });
+        }
+
+        const wrapper = document.getElementById('envWrapper');
+        wrapper.addEventListener('click', () => {
+            wrapper.classList.toggle('open');
+            if (wrapper.classList.contains('open')) {
+                player.playVideo();
+            } else {
+                player.pauseVideo();
+            }
+        });
+    </script>
+</body>
+</html>
